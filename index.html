@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Intentionally Vulnerable XSS App</title>
+</head>
+<body>
+    <h1>Intentionally Vulnerable XSS Demo</h1>
+    <form method="GET" action="">
+        <label for="xss">Enter something:</label>
+        <input type="text" id="xss" name="xss">
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="output">
+        <p><strong>Usage:</strong> Try entering <code>&lt;script&gt;alert('XSS!')&lt;/script&gt;</code>.</p>
+        <p>Result: <span id="result"></span></p>
+    </div>
+
+    <script>
+        // Retrieve query parameter "xss"
+        const params = new URLSearchParams(window.location.search);
+        const userInput = params.get('xss') || '';
+
+        // Intentionally unsafe output for XSS demonstration
+        document.getElementById('result').innerHTML = userInput;
+    </script>
+</body>
+</html>
